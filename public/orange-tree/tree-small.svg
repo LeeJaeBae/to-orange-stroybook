@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" fill="none">
+  <!-- Trunk -->
+  <rect x="52" y="100" width="16" height="40" rx="3" fill="#8B6914"/>
+  <rect x="54" y="100" width="4" height="35" rx="2" fill="#A07A1A" opacity="0.5"/>
+  <!-- Canopy -->
+  <circle cx="60" cy="75" r="35" fill="#4CAF50"/>
+  <circle cx="45" cy="65" r="20" fill="#66BB6A"/>
+  <circle cx="75" cy="68" r="18" fill="#43A047"/>
+  <circle cx="60" cy="55" r="22" fill="#81C784"/>
+</svg>

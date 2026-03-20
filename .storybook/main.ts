@@ -9,6 +9,7 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/addon-links',
   ],
+  staticDirs: ['../public'],
   framework: {
     name: '@storybook/react-vite',
     options: {},

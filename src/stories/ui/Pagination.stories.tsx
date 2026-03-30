@@ -9,21 +9,15 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 
-const meta = {
+const meta: Meta<typeof Pagination> = {
   title: 'UI/Pagination',
   component: Pagination,
   tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component: '페이지 네비게이션을 위한 페이지네이션 컴포넌트입니다.',
-      },
-    },
-  },
-} satisfies Meta<typeof Pagination>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Pagination>;
 
 export const Default: Story = {
   render: () => (
@@ -42,9 +36,6 @@ export const Default: Story = {
           <PaginationLink href="#">3</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
           <PaginationNext href="#" />
         </PaginationItem>
       </PaginationContent>
@@ -52,42 +43,7 @@ export const Default: Story = {
   ),
 };
 
-export const FirstPage: Story = {
-  name: '첫 페이지',
-  render: () => (
-    <Pagination>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious href="#" className="pointer-events-none opacity-50" />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive>1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">2</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">3</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">4</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">5</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationEllipsis />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href="#" />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
-  ),
-};
-
-export const MiddlePage: Story = {
-  name: '중간 페이지',
+export const WithEllipsis: Story = {
   render: () => (
     <Pagination>
       <PaginationContent>
@@ -95,10 +51,10 @@ export const MiddlePage: Story = {
           <PaginationPrevious href="#" />
         </PaginationItem>
         <PaginationItem>
-          <PaginationEllipsis />
+          <PaginationLink href="#">1</PaginationLink>
         </PaginationItem>
         <PaginationItem>
-          <PaginationLink href="#">4</PaginationLink>
+          <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem>
           <PaginationLink href="#" isActive>5</PaginationLink>
@@ -107,29 +63,13 @@ export const MiddlePage: Story = {
           <PaginationLink href="#">6</PaginationLink>
         </PaginationItem>
         <PaginationItem>
+          <PaginationLink href="#">7</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
           <PaginationEllipsis />
         </PaginationItem>
         <PaginationItem>
-          <PaginationNext href="#" />
-        </PaginationItem>
-      </PaginationContent>
-    </Pagination>
-  ),
-};
-
-export const FewPages: Story = {
-  name: '적은 페이지',
-  render: () => (
-    <Pagination>
-      <PaginationContent>
-        <PaginationItem>
-          <PaginationPrevious href="#" className="pointer-events-none opacity-50" />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#" isActive>1</PaginationLink>
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationLink href="#">2</PaginationLink>
+          <PaginationLink href="#">20</PaginationLink>
         </PaginationItem>
         <PaginationItem>
           <PaginationNext href="#" />

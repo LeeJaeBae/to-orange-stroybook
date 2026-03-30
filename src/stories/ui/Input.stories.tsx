@@ -1,46 +1,34 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Search, Mail } from 'lucide-react';
 
-const meta = {
+const meta: Meta<typeof Input> = {
   title: 'UI/Input',
   component: Input,
   tags: ['autodocs'],
-  argTypes: {
-    type: {
-      control: 'select',
-      options: ['text', 'password', 'email', 'number', 'search', 'tel', 'url', 'file'],
-      description: '입력 타입',
-    },
-    placeholder: {
-      control: 'text',
-      description: '플레이스홀더 텍스트',
-    },
-    disabled: {
-      control: 'boolean',
-      description: '비활성화 상태',
-    },
-  },
-  args: {
-    type: 'text',
-    placeholder: '입력하세요...',
-  },
-} satisfies Meta<typeof Input>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Input>;
 
 export const Default: Story = {
-  args: {
-    placeholder: '내용을 입력하세요',
-  },
+  args: { placeholder: '텍스트를 입력하세요' },
+};
+
+export const WithLabel: Story = {
+  render: () => (
+    <div className="grid w-full max-w-sm items-center gap-1.5">
+      <Label htmlFor="name">수신인 이름</Label>
+      <Input id="name" type="text" placeholder="홍길동" />
+    </div>
+  ),
 };
 
 export const Email: Story = {
   args: {
     type: 'email',
-    placeholder: 'email@example.com',
+    placeholder: '이메일을 입력하세요',
   },
 };
 
@@ -51,55 +39,30 @@ export const Password: Story = {
   },
 };
 
-export const Number: Story = {
-  args: {
-    type: 'number',
-    placeholder: '숫자를 입력하세요',
-  },
-};
-
-export const File: Story = {
-  args: {
-    type: 'file',
-  },
-};
-
 export const Disabled: Story = {
   args: {
+    placeholder: '비활성 입력란',
     disabled: true,
-    placeholder: '비활성화된 입력란',
   },
 };
 
-export const WithValue: Story = {
-  args: {
-    defaultValue: '미리 입력된 값',
-  },
-};
-
-export const WithLabel: Story = {
+export const WithFile: Story = {
   render: () => (
     <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="name">이름</Label>
-      <Input id="name" placeholder="이름을 입력하세요" />
+      <Label htmlFor="photo">사진 첨부</Label>
+      <Input id="photo" type="file" />
     </div>
   ),
 };
 
-export const WithIcon: Story = {
+export const AllVariants: Story = {
   render: () => (
-    <div className="relative w-full max-w-sm">
-      <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-      <Input className="pl-9" placeholder="검색..." />
-    </div>
-  ),
-};
-
-export const WithIconRight: Story = {
-  render: () => (
-    <div className="relative w-full max-w-sm">
-      <Input className="pr-9" placeholder="이메일 주소" type="email" />
-      <Mail className="absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+    <div className="flex flex-col gap-4 w-full max-w-sm">
+      <Input placeholder="기본 입력란" />
+      <Input placeholder="이메일" type="email" />
+      <Input placeholder="비밀번호" type="password" />
+      <Input placeholder="비활성" disabled />
+      <Input placeholder="읽기 전용" readOnly defaultValue="읽기 전용 텍스트" />
     </div>
   ),
 };

@@ -3,39 +3,25 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 
-const meta = {
+const meta: Meta<typeof Label> = {
   title: 'UI/Label',
   component: Label,
   tags: ['autodocs'],
-  argTypes: {
-    children: {
-      control: 'text',
-      description: '라벨 텍스트',
-    },
-    htmlFor: {
-      control: 'text',
-      description: '연결할 input의 id',
-    },
-  },
-  args: {
-    children: '라벨',
-  },
-} satisfies Meta<typeof Label>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Label>;
 
 export const Default: Story = {
-  args: {
-    children: '이름',
-  },
+  args: { children: '수신인 이름' },
 };
 
 export const WithInput: Story = {
   render: () => (
     <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="email">이메일</Label>
-      <Input type="email" id="email" placeholder="이메일을 입력하세요" />
+      <Label htmlFor="name">수신인 이름</Label>
+      <Input id="name" type="text" placeholder="홍길동" />
     </div>
   ),
 };
@@ -50,25 +36,12 @@ export const WithCheckbox: Story = {
 };
 
 export const Required: Story = {
-  name: '필수 항목',
   render: () => (
     <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="required-name">
-        이름 <span className="text-destructive">*</span>
+      <Label htmlFor="required">
+        수용번호 <span className="text-destructive">*</span>
       </Label>
-      <Input id="required-name" placeholder="이름을 입력하세요" />
-    </div>
-  ),
-};
-
-export const DisabledState: Story = {
-  name: '비활성화 상태',
-  render: () => (
-    <div className="grid w-full max-w-sm items-center gap-1.5">
-      <Label htmlFor="disabled-input" className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-        비활성화된 항목
-      </Label>
-      <Input id="disabled-input" disabled placeholder="수정 불가" />
+      <Input id="required" type="text" placeholder="필수 입력" />
     </div>
   ),
 };

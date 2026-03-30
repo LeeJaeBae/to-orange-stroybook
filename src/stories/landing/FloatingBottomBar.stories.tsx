@@ -1,34 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import FloatingBottomBar from '@/components/landing/FloatingBottomBar';
+import { FloatingBottomBar } from '@/components/landing/components/client/FloatingBottomBar';
 
-const meta = {
+const meta: Meta<typeof FloatingBottomBar> = {
   title: 'Landing/FloatingBottomBar',
   component: FloatingBottomBar,
-  tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-  },
-  decorators: [
-    (Story) => (
-      <div style={{ minHeight: '200vh', paddingTop: '80vh' }}>
-        <p style={{ textAlign: 'center', color: '#999' }}>
-          스크롤하여 하단 바 동작을 확인하세요
-        </p>
-        <Story />
-      </div>
-    ),
-  ],
-} satisfies Meta<typeof FloatingBottomBar>;
+  parameters: { layout: 'fullscreen' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof FloatingBottomBar>;
 
-export const Default: Story = {};
-
+export const Desktop: Story = {
+  parameters: { viewport: { defaultViewport: 'desktop' } },
+};
+export const Tablet: Story = {
+  parameters: { viewport: { defaultViewport: 'tablet' } },
+};
 export const Mobile: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'mobile',
-    },
-  },
+  parameters: { viewport: { defaultViewport: 'mobile' } },
 };

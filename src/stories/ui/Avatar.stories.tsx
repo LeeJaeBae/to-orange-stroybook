@@ -1,43 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
-const meta = {
+const meta: Meta<typeof Avatar> = {
   title: 'UI/Avatar',
   component: Avatar,
   tags: ['autodocs'],
-  argTypes: {
-    className: {
-      control: 'text',
-      description: '추가 CSS 클래스',
-    },
-  },
-} satisfies Meta<typeof Avatar>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Avatar>;
 
-export const WithImage: Story = {
+export const Default: Story = {
   render: () => (
     <Avatar>
-      <AvatarImage src="https://github.com/shadcn.png" alt="프로필" />
+      <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
       <AvatarFallback>CN</AvatarFallback>
     </Avatar>
   ),
 };
 
-export const Fallback: Story = {
+export const WithFallback: Story = {
   render: () => (
     <Avatar>
-      <AvatarImage src="/broken-image.jpg" alt="프로필" />
+      <AvatarImage src="/invalid-image.png" alt="사용자" />
       <AvatarFallback>홍길</AvatarFallback>
-    </Avatar>
-  ),
-};
-
-export const FallbackOnly: Story = {
-  render: () => (
-    <Avatar>
-      <AvatarFallback>김</AvatarFallback>
     </Avatar>
   ),
 };
@@ -46,35 +33,31 @@ export const Sizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar className="h-6 w-6">
-        <AvatarFallback className="text-xs">S</AvatarFallback>
+        <AvatarFallback className="text-xs">소</AvatarFallback>
       </Avatar>
-      <Avatar className="h-10 w-10">
-        <AvatarFallback>M</AvatarFallback>
+      <Avatar>
+        <AvatarFallback>중</AvatarFallback>
       </Avatar>
-      <Avatar className="h-14 w-14">
-        <AvatarFallback className="text-lg">L</AvatarFallback>
-      </Avatar>
-      <Avatar className="h-20 w-20">
-        <AvatarFallback className="text-2xl">XL</AvatarFallback>
+      <Avatar className="h-16 w-16">
+        <AvatarFallback className="text-xl">대</AvatarFallback>
       </Avatar>
     </div>
   ),
 };
 
-export const Group: Story = {
+export const AllVariants: Story = {
   render: () => (
-    <div className="flex -space-x-3">
-      <Avatar className="border-2 border-background">
-        <AvatarFallback>A</AvatarFallback>
+    <div className="flex items-center gap-4">
+      <Avatar>
+        <AvatarImage src="https://github.com/shadcn.png" alt="사용자 1" />
+        <AvatarFallback>U1</AvatarFallback>
       </Avatar>
-      <Avatar className="border-2 border-background">
-        <AvatarFallback>B</AvatarFallback>
+      <Avatar>
+        <AvatarImage src="/invalid.png" alt="사용자 2" />
+        <AvatarFallback>김민</AvatarFallback>
       </Avatar>
-      <Avatar className="border-2 border-background">
-        <AvatarFallback>C</AvatarFallback>
-      </Avatar>
-      <Avatar className="border-2 border-background">
-        <AvatarFallback className="text-xs">+3</AvatarFallback>
+      <Avatar>
+        <AvatarFallback className="bg-orange-100 text-orange-600">이준</AvatarFallback>
       </Avatar>
     </div>
   ),

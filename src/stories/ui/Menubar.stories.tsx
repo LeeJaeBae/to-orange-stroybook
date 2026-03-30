@@ -1,37 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 import {
   Menubar,
+  MenubarMenu,
+  MenubarTrigger,
   MenubarContent,
   MenubarItem,
-  MenubarMenu,
+  MenubarLabel,
   MenubarSeparator,
   MenubarShortcut,
-  MenubarTrigger,
   MenubarCheckboxItem,
   MenubarRadioGroup,
   MenubarRadioItem,
-  MenubarLabel,
   MenubarSub,
-  MenubarSubContent,
   MenubarSubTrigger,
+  MenubarSubContent,
 } from '@/components/ui/menubar';
 
-const meta = {
+const meta: Meta<typeof Menubar> = {
   title: 'UI/Menubar',
   component: Menubar,
   tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component: '데스크톱 애플리케이션 스타일의 메뉴바 컴포넌트입니다.',
-      },
-    },
-  },
-} satisfies Meta<typeof Menubar>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Menubar>;
 
 export const Default: Story = {
   render: () => (
@@ -50,99 +43,41 @@ export const Default: Story = {
             저장 <MenubarShortcut>⌘S</MenubarShortcut>
           </MenubarItem>
           <MenubarItem>
-            다른 이름으로 저장 <MenubarShortcut>⇧⌘S</MenubarShortcut>
+            인쇄 <MenubarShortcut>⌘P</MenubarShortcut>
           </MenubarItem>
-          <MenubarSeparator />
-          <MenubarItem>인쇄</MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger>편집</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>
+          <MenubarItem disabled>
             실행 취소 <MenubarShortcut>⌘Z</MenubarShortcut>
           </MenubarItem>
-          <MenubarItem>
+          <MenubarItem disabled>
             다시 실행 <MenubarShortcut>⇧⌘Z</MenubarShortcut>
           </MenubarItem>
           <MenubarSeparator />
-          <MenubarItem>
-            잘라내기 <MenubarShortcut>⌘X</MenubarShortcut>
-          </MenubarItem>
-          <MenubarItem>
-            복사 <MenubarShortcut>⌘C</MenubarShortcut>
-          </MenubarItem>
-          <MenubarItem>
-            붙여넣기 <MenubarShortcut>⌘V</MenubarShortcut>
-          </MenubarItem>
+          <MenubarSub>
+            <MenubarSubTrigger>찾기</MenubarSubTrigger>
+            <MenubarSubContent>
+              <MenubarItem>찾기 <MenubarShortcut>⌘F</MenubarShortcut></MenubarItem>
+              <MenubarItem>바꾸기 <MenubarShortcut>⌘H</MenubarShortcut></MenubarItem>
+            </MenubarSubContent>
+          </MenubarSub>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
         <MenubarTrigger>보기</MenubarTrigger>
         <MenubarContent>
-          <MenubarItem>미리보기</MenubarItem>
+          <MenubarCheckboxItem checked>미리보기</MenubarCheckboxItem>
+          <MenubarCheckboxItem>전체 화면</MenubarCheckboxItem>
           <MenubarSeparator />
-          <MenubarItem>확대</MenubarItem>
-          <MenubarItem>축소</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger>도움말</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>이용 안내</MenubarItem>
-          <MenubarItem>문의하기</MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-    </Menubar>
-  ),
-};
-
-export const WithCheckboxAndRadio: Story = {
-  name: '체크박스 및 라디오',
-  render: function MenubarDemo() {
-    const [showToolbar, setShowToolbar] = React.useState(true);
-    const [theme, setTheme] = React.useState('light');
-
-    return (
-      <Menubar>
-        <MenubarMenu>
-          <MenubarTrigger>설정</MenubarTrigger>
-          <MenubarContent>
-            <MenubarCheckboxItem checked={showToolbar} onCheckedChange={setShowToolbar}>
-              도구 모음 표시
-            </MenubarCheckboxItem>
-            <MenubarSeparator />
-            <MenubarLabel>테마</MenubarLabel>
-            <MenubarRadioGroup value={theme} onValueChange={setTheme}>
-              <MenubarRadioItem value="light">라이트</MenubarRadioItem>
-              <MenubarRadioItem value="dark">다크</MenubarRadioItem>
-              <MenubarRadioItem value="system">시스템</MenubarRadioItem>
-            </MenubarRadioGroup>
-          </MenubarContent>
-        </MenubarMenu>
-      </Menubar>
-    );
-  },
-};
-
-export const WithSubMenu: Story = {
-  name: '하위 메뉴',
-  render: () => (
-    <Menubar>
-      <MenubarMenu>
-        <MenubarTrigger>편지</MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem>새 편지 쓰기</MenubarItem>
-          <MenubarSub>
-            <MenubarSubTrigger>편지지 선택</MenubarSubTrigger>
-            <MenubarSubContent>
-              <MenubarItem>기본 편지지</MenubarItem>
-              <MenubarItem>꽃무늬 편지지</MenubarItem>
-              <MenubarItem>감성 편지지</MenubarItem>
-            </MenubarSubContent>
-          </MenubarSub>
-          <MenubarSeparator />
-          <MenubarItem disabled>임시 저장 (0)</MenubarItem>
+          <MenubarLabel>글꼴 크기</MenubarLabel>
+          <MenubarRadioGroup value="medium">
+            <MenubarRadioItem value="small">작게</MenubarRadioItem>
+            <MenubarRadioItem value="medium">보통</MenubarRadioItem>
+            <MenubarRadioItem value="large">크게</MenubarRadioItem>
+          </MenubarRadioGroup>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>

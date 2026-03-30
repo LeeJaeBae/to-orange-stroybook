@@ -1,16 +1,27 @@
-// Mock for next/image used in Storybook
 import React from 'react';
 
-const Image = ({ src, alt, width, height, className, fill, ...props }: any) => (
-  <img
-    src={typeof src === 'object' ? src.src : src}
-    alt={alt || ''}
-    width={fill ? undefined : width}
-    height={fill ? undefined : height}
-    className={className}
-    style={fill ? { objectFit: 'cover', width: '100%', height: '100%' } : undefined}
-    {...props}
-  />
+type ImageProps = React.ImgHTMLAttributes<HTMLImageElement> & {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  fill?: boolean;
+  priority?: boolean;
+  quality?: number;
+  sizes?: string;
+  placeholder?: 'blur' | 'empty';
+  blurDataURL?: string;
+  unoptimized?: boolean;
+};
+
+const Image = React.forwardRef<HTMLImageElement, ImageProps>(
+  ({ fill, priority, quality, sizes, placeholder, blurDataURL, unoptimized, ...rest }, ref) => {
+    const style: React.CSSProperties = fill
+      ? { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover' }
+      : {};
+    return <img ref={ref} style={{ ...style, ...rest.style }} {...rest} />;
+  }
 );
+Image.displayName = 'Image';
 
 export default Image;

@@ -1,14 +1,20 @@
-// Mock for next/link used in Storybook
 import React from 'react';
 
-const Link = React.forwardRef<
-  HTMLAnchorElement,
-  React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; prefetch?: boolean }
->(({ href, children, prefetch, ...props }, ref) => (
-  <a ref={ref} href={href} {...props} onClick={(e) => { e.preventDefault(); console.log('Navigate to:', href); }}>
-    {children}
-  </a>
-));
+type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+  href: string;
+  prefetch?: boolean;
+  replace?: boolean;
+  scroll?: boolean;
+  children: React.ReactNode;
+};
 
+const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
+  ({ href, prefetch, replace, scroll, children, ...rest }, ref) => (
+    <a ref={ref} href={href} {...rest}>
+      {children}
+    </a>
+  )
+);
 Link.displayName = 'Link';
+
 export default Link;

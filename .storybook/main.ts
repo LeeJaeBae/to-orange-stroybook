@@ -1,4 +1,5 @@
 import type { StorybookConfig } from '@storybook/react-vite';
+import { mergeConfig } from 'vite';
 import path from 'path';
 
 const config: StorybookConfig = {
@@ -9,31 +10,29 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
     '@storybook/addon-links',
   ],
-  staticDirs: ['../public'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
-  viteFinal: async (config) => {
-    config.resolve = config.resolve || {};
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': path.resolve(__dirname, '../src'),
-      'next/link': path.resolve(__dirname, '../src/mocks/next-link.tsx'),
-      'next/image': path.resolve(__dirname, '../src/mocks/next-image.tsx'),
-      'next/navigation': path.resolve(__dirname, '../src/mocks/next-navigation.ts'),
-      '@tanstack/react-query': path.resolve(__dirname, '../src/mocks/tanstack-query.ts'),
-      '@supabase/ssr': path.resolve(__dirname, '../src/mocks/supabase.ts'),
-      '@supabase/supabase-js': path.resolve(__dirname, '../src/mocks/supabase.ts'),
-      '@/lib/supabase/client': path.resolve(__dirname, '../src/mocks/supabase.ts'),
-      '@/lib/supabase/server': path.resolve(__dirname, '../src/mocks/supabase.ts'),
-      '@to-orange/api-contracts': path.resolve(__dirname, '../src/mocks/api-contracts.ts'),
-      '@to-orange/db': path.resolve(__dirname, '../src/mocks/api-contracts.ts'),
-    };
-    return config;
-  },
+  staticDirs: ['../public'],
   docs: {
     autodocs: 'tag',
+  },
+  viteFinal: async (config) => {
+    return mergeConfig(config, {
+      resolve: {
+        alias: [
+          { find: 'next/link', replacement: path.resolve(__dirname, '../src/mocks/next-link.tsx') },
+          { find: 'next/image', replacement: path.resolve(__dirname, '../src/mocks/next-image.tsx') },
+          { find: 'next/navigation', replacement: path.resolve(__dirname, '../src/mocks/next-navigation.ts') },
+          { find: '@/features/auth/index.client', replacement: path.resolve(__dirname, '../src/mocks/auth.ts') },
+          { find: '@/features/auth/hooks/useAuth', replacement: path.resolve(__dirname, '../src/mocks/auth.ts') },
+          { find: '@/lib/analytics/tracker', replacement: path.resolve(__dirname, '../src/mocks/analytics.ts') },
+          { find: '@/lib/seo/metadata', replacement: path.resolve(__dirname, '../src/mocks/seo.ts') },
+          { find: /^@\//, replacement: path.resolve(__dirname, '../src') + '/' },
+        ],
+      },
+    });
   },
 };
 

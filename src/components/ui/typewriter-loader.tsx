@@ -1,19 +1,19 @@
-import React from 'react';
+import * as React from "react"
 
 interface TypewriterLoaderProps {
-  className?: string;
+  className?: string
 }
 
-export function TypewriterLoader({ className = '' }: TypewriterLoaderProps) {
+export function TypewriterLoader({ className = "" }: TypewriterLoaderProps) {
   return (
-    <div className={`typewriter-loader ${className}`}>
+    <div data-slot="typewriter-loader" className={`typewriter-loader ${className}`}>
       <div className="typewriter-slide">
         <i />
       </div>
       <div className="typewriter-paper" />
       <div className="typewriter-keyboard" />
     </div>
-  );
+  )
 }
 
-export default TypewriterLoader;
+export default TypewriterLoader

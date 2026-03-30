@@ -1,53 +1,49 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { DeleteButton } from '@/components/ui/delete-button';
-import { fn } from '@storybook/test';
 
-const meta = {
+const meta: Meta<typeof DeleteButton> = {
   title: 'UI/DeleteButton',
   component: DeleteButton,
   tags: ['autodocs'],
-  argTypes: {
-    className: {
-      control: 'text',
-      description: '추가 CSS 클래스',
-    },
-  },
-  args: {
-    onClick: fn(),
-  },
-  parameters: {
-    docs: {
-      description: {
-        component: '호버 시 확장되는 애니메이션 삭제 버튼 컴포넌트입니다. 마우스를 올려보세요.',
-      },
-    },
-  },
-} satisfies Meta<typeof DeleteButton>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof DeleteButton>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    onClick: () => alert('삭제 클릭'),
+  },
 };
 
 export const InContext: Story = {
-  name: '컨텍스트 내 사용',
   render: () => (
-    <div className="space-y-3 w-[300px]">
-      {['홍길동 - 서울구치소', '김철수 - 인천구치소', '이영희 - 수원구치소'].map((item) => (
-        <div key={item} className="flex items-center justify-between rounded-md border p-3">
-          <span className="text-sm">{item}</span>
-          <DeleteButton onClick={(e) => { e.stopPropagation(); }} />
+    <div className="flex items-center gap-4 p-4 border rounded-md w-fit">
+      <span className="text-sm">첨부된 사진</span>
+      <div className="relative w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center">
+        <span className="text-xs text-gray-500">사진.jpg</span>
+        <div className="absolute -top-2 -right-2">
+          <DeleteButton onClick={() => alert('사진 삭제')} />
         </div>
-      ))}
+      </div>
     </div>
   ),
 };
 
-export const CustomClass: Story = {
-  name: '커스텀 스타일',
-  args: {
-    className: 'shadow-lg',
-  },
+export const MultipleItems: Story = {
+  render: () => (
+    <div className="flex gap-4">
+      {['사진1', '사진2', '사진3'].map((name) => (
+        <div key={name} className="relative">
+          <div className="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center">
+            <span className="text-xs text-gray-500">{name}</span>
+          </div>
+          <div className="absolute -top-2 -right-2">
+            <DeleteButton onClick={() => alert(`${name} 삭제`)} />
+          </div>
+        </div>
+      ))}
+    </div>
+  ),
 };

@@ -1,12 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { Button } from '@/components/ui/button';
-import { Plus, Info, HelpCircle } from 'lucide-react';
 
-const meta = {
+const meta: Meta<typeof Tooltip> = {
   title: 'UI/Tooltip',
   component: Tooltip,
   tags: ['autodocs'],
+  parameters: { layout: 'padded' },
   decorators: [
     (Story) => (
       <TooltipProvider>
@@ -14,92 +19,72 @@ const meta = {
       </TooltipProvider>
     ),
   ],
-} satisfies Meta<typeof Tooltip>;
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Tooltip>;
 
 export const Default: Story = {
   render: () => (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="outline">마우스를 올려보세요</Button>
+        <Button variant="outline">툴팁 보기</Button>
       </TooltipTrigger>
       <TooltipContent>
-        <p>툴팁 내용입니다</p>
+        <p>수용번호는 교정시설 방문 시 부여됩니다</p>
       </TooltipContent>
     </Tooltip>
   ),
 };
 
-export const WithIcon: Story = {
+export const WithSide: Story = {
   render: () => (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <Button variant="outline" size="icon">
-          <Plus className="h-4 w-4" />
-        </Button>
-      </TooltipTrigger>
-      <TooltipContent>
-        <p>새 편지 작성</p>
-      </TooltipContent>
-    </Tooltip>
-  ),
-};
-
-export const Sides: Story = {
-  name: '방향별 툴팁',
-  render: () => (
-    <div className="flex items-center justify-center gap-8 p-12">
+    <div className="flex gap-8 justify-center items-center h-24">
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="outline" size="sm">위</Button>
+          <Button variant="outline" size="sm">상단</Button>
         </TooltipTrigger>
         <TooltipContent side="top">
-          <p>위쪽 툴팁</p>
+          <p>상단 툴팁</p>
         </TooltipContent>
       </Tooltip>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="outline" size="sm">아래</Button>
-        </TooltipTrigger>
-        <TooltipContent side="bottom">
-          <p>아래쪽 툴팁</p>
-        </TooltipContent>
-      </Tooltip>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline" size="sm">왼쪽</Button>
-        </TooltipTrigger>
-        <TooltipContent side="left">
-          <p>왼쪽 툴팁</p>
-        </TooltipContent>
-      </Tooltip>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Button variant="outline" size="sm">오른쪽</Button>
+          <Button variant="outline" size="sm">우측</Button>
         </TooltipTrigger>
         <TooltipContent side="right">
-          <p>오른쪽 툴팁</p>
+          <p>우측 툴팁</p>
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="outline" size="sm">하단</Button>
+        </TooltipTrigger>
+        <TooltipContent side="bottom">
+          <p>하단 툴팁</p>
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="outline" size="sm">좌측</Button>
+        </TooltipTrigger>
+        <TooltipContent side="left">
+          <p>좌측 툴팁</p>
         </TooltipContent>
       </Tooltip>
     </div>
   ),
 };
 
-export const HelpTooltip: Story = {
-  name: '도움말 툴팁',
+export const DelayedOpen: Story = {
   render: () => (
-    <div className="flex items-center gap-2">
-      <span className="text-sm">수번</span>
-      <Tooltip>
-        <TooltipTrigger>
-          <HelpCircle className="h-4 w-4 text-muted-foreground" />
-        </TooltipTrigger>
-        <TooltipContent>
-          <p>수용자에게 부여된 고유 번호입니다</p>
-        </TooltipContent>
-      </Tooltip>
-    </div>
+    <Tooltip delayDuration={500}>
+      <TooltipTrigger asChild>
+        <Button>0.5초 후 표시</Button>
+      </TooltipTrigger>
+      <TooltipContent>
+        <p>지연 후 표시되는 툴팁</p>
+      </TooltipContent>
+    </Tooltip>
   ),
 };

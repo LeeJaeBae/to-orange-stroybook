@@ -1,24 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import FeaturesScroll from '@/components/landing/FeaturesScroll';
+import { FeaturesScroll } from '@/components/landing/sections/client/FeaturesScroll';
 
-const meta = {
+const meta: Meta<typeof FeaturesScroll> = {
   title: 'Landing/FeaturesScroll',
   component: FeaturesScroll,
-  tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-  },
-} satisfies Meta<typeof FeaturesScroll>;
+  parameters: { layout: 'fullscreen' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof FeaturesScroll>;
 
-export const Default: Story = {};
-
+export const Desktop: Story = {
+  parameters: { viewport: { defaultViewport: 'desktop' } },
+};
+export const Tablet: Story = {
+  parameters: { viewport: { defaultViewport: 'tablet' } },
+};
 export const Mobile: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'mobile',
-    },
-  },
+  parameters: { viewport: { defaultViewport: 'mobile' } },
 };

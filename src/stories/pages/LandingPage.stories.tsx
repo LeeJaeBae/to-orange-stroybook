@@ -1,74 +1,33 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import {
-  Navbar,
-  HeroSection,
-  FeaturesScroll,
-  HowItWorks,
-  SpecialFeatures,
-  LetterSection,
-  AudioInterviewSection,
-  TrustStats,
-  CTASection,
-  FAQ,
-  Footer,
-  FloatingBottomBar,
-  FloatingShareButton,
-} from '@/components/landing';
+import { Navbar } from '@/components/landing/components/Navbar';
+import { LandingPage } from '@/components/landing/LandingPage';
+import { Footer } from '@/components/landing/components/Footer';
 
-function LandingPage() {
+function FullLandingPage() {
   return (
-    <div className="min-h-screen bg-white">
+    <>
       <Navbar />
-      <HeroSection />
-      <FeaturesScroll />
-      <TrustStats />
-      <HowItWorks />
-      <SpecialFeatures />
-      <LetterSection />
-      <AudioInterviewSection />
-      <CTASection />
-      <FAQ />
+      <LandingPage />
       <Footer />
-      <FloatingBottomBar />
-      <FloatingShareButton />
-    </div>
+    </>
   );
 }
 
-const meta = {
+const meta: Meta = {
   title: 'Pages/LandingPage',
-  component: LandingPage,
-  tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-  },
-} satisfies Meta<typeof LandingPage>;
+  component: FullLandingPage,
+  parameters: { layout: 'fullscreen' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {};
-
-export const Mobile: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'mobile',
-    },
-  },
-};
-
-export const Tablet: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'tablet',
-    },
-  },
-};
+type Story = StoryObj;
 
 export const Desktop: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'desktop',
-    },
-  },
+  parameters: { viewport: { defaultViewport: 'desktop' } },
+};
+export const Tablet: Story = {
+  parameters: { viewport: { defaultViewport: 'tablet' } },
+};
+export const Mobile: Story = {
+  parameters: { viewport: { defaultViewport: 'mobile' } },
 };

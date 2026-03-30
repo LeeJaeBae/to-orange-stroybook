@@ -1,103 +1,41 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Toggle } from '@/components/ui/toggle';
-import { Bold, Italic, Underline, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
+import { Bold, Italic, Underline } from 'lucide-react';
 
-const meta = {
+const meta: Meta<typeof Toggle> = {
   title: 'UI/Toggle',
   component: Toggle,
   tags: ['autodocs'],
-  argTypes: {
-    variant: {
-      control: 'select',
-      options: ['default', 'outline'],
-      description: '토글 스타일 변형',
-    },
-    size: {
-      control: 'select',
-      options: ['default', 'sm', 'lg'],
-      description: '토글 크기',
-    },
-    disabled: {
-      control: 'boolean',
-      description: '비활성화 상태',
-    },
-    pressed: {
-      control: 'boolean',
-      description: '눌린 상태',
-    },
-  },
-  args: {
-    variant: 'default',
-    size: 'default',
-  },
-} satisfies Meta<typeof Toggle>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Toggle>;
 
 export const Default: Story = {
-  args: {
-    children: <Bold className="h-4 w-4" />,
-    'aria-label': '굵게',
-  },
+  args: { children: '토글 버튼' },
 };
 
 export const Outline: Story = {
-  args: {
-    variant: 'outline',
-    children: <Italic className="h-4 w-4" />,
-    'aria-label': '기울임',
-  },
-};
-
-export const WithText: Story = {
-  args: {
-    children: (
-      <>
-        <Bold className="h-4 w-4" />
-        굵게
-      </>
-    ),
-  },
-};
-
-export const Small: Story = {
-  args: {
-    size: 'sm',
-    children: <Bold className="h-4 w-4" />,
-    'aria-label': '굵게',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    size: 'lg',
-    children: <Bold className="h-4 w-4" />,
-    'aria-label': '굵게',
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    children: <Bold className="h-4 w-4" />,
-    'aria-label': '굵게',
-  },
+  args: { children: '아웃라인', variant: 'outline' },
 };
 
 export const Pressed: Story = {
-  args: {
-    defaultPressed: true,
-    children: <Bold className="h-4 w-4" />,
-    'aria-label': '굵게',
-  },
+  args: { children: '활성', pressed: true },
+};
+
+export const WithIcon: Story = {
+  render: () => (
+    <Toggle aria-label="굵게">
+      <Bold className="h-4 w-4" />
+    </Toggle>
+  ),
 };
 
 export const TextFormatting: Story = {
-  name: '텍스트 서식 도구',
   render: () => (
-    <div className="flex items-center gap-1">
-      <Toggle aria-label="굵게" defaultPressed>
+    <div className="flex gap-1">
+      <Toggle aria-label="굵게" pressed>
         <Bold className="h-4 w-4" />
       </Toggle>
       <Toggle aria-label="기울임">
@@ -110,36 +48,12 @@ export const TextFormatting: Story = {
   ),
 };
 
-export const Alignment: Story = {
-  name: '정렬 도구',
-  render: () => (
-    <div className="flex items-center gap-1">
-      <Toggle variant="outline" aria-label="왼쪽 정렬" defaultPressed>
-        <AlignLeft className="h-4 w-4" />
-      </Toggle>
-      <Toggle variant="outline" aria-label="가운데 정렬">
-        <AlignCenter className="h-4 w-4" />
-      </Toggle>
-      <Toggle variant="outline" aria-label="오른쪽 정렬">
-        <AlignRight className="h-4 w-4" />
-      </Toggle>
-    </div>
-  ),
-};
-
 export const AllSizes: Story = {
-  name: '모든 크기',
   render: () => (
-    <div className="flex items-center gap-4">
-      <Toggle size="sm" aria-label="작은 토글">
-        <Bold className="h-4 w-4" />
-      </Toggle>
-      <Toggle size="default" aria-label="기본 토글">
-        <Bold className="h-4 w-4" />
-      </Toggle>
-      <Toggle size="lg" aria-label="큰 토글">
-        <Bold className="h-4 w-4" />
-      </Toggle>
+    <div className="flex items-center gap-2">
+      <Toggle size="sm">작게</Toggle>
+      <Toggle>기본</Toggle>
+      <Toggle size="lg">크게</Toggle>
     </div>
   ),
 };

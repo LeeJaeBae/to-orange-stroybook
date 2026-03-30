@@ -1,13 +1,22 @@
-// Mock for next/navigation used in Storybook
-export const useRouter = () => ({
-  push: (url: string) => console.log('Navigate to:', url),
-  replace: (url: string) => console.log('Replace with:', url),
-  back: () => console.log('Go back'),
-  forward: () => console.log('Go forward'),
-  refresh: () => console.log('Refresh'),
-  prefetch: (url: string) => console.log('Prefetch:', url),
-});
+export function useRouter() {
+  return {
+    push: (url: string) => console.log('[mock] router.push:', url),
+    replace: (url: string) => console.log('[mock] router.replace:', url),
+    back: () => console.log('[mock] router.back'),
+    forward: () => console.log('[mock] router.forward'),
+    refresh: () => console.log('[mock] router.refresh'),
+    prefetch: (url: string) => console.log('[mock] router.prefetch:', url),
+  };
+}
 
-export const usePathname = () => '/';
-export const useSearchParams = () => new URLSearchParams();
-export const useParams = () => ({});
+export function usePathname() {
+  return '/';
+}
+
+export function useSearchParams() {
+  return new URLSearchParams();
+}
+
+export function useParams() {
+  return {};
+}

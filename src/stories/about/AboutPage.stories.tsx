@@ -1,40 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import AboutPage from '@/components/about/AboutPage';
+import { AboutPage } from '@/components/about/AboutPage';
+import { Navbar } from '@/components/landing/components/Navbar';
+import { Footer } from '@/components/landing/components/Footer';
 
-const meta = {
-  title: '회사소개/투오렌지 소개',
-  component: AboutPage,
-  tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-  },
-} satisfies Meta<typeof AboutPage>;
+function FullAboutPage() {
+  return (
+    <>
+      <Navbar />
+      <AboutPage />
+      <Footer />
+    </>
+  );
+}
+
+const meta: Meta = {
+  title: 'About/AboutPage',
+  component: FullAboutPage,
+  parameters: { layout: 'fullscreen' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {};
-
-export const Mobile: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'mobile',
-    },
-  },
-};
-
-export const Tablet: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'tablet',
-    },
-  },
-};
+type Story = StoryObj;
 
 export const Desktop: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'desktop',
-    },
-  },
+  parameters: { viewport: { defaultViewport: 'desktop' } },
+};
+export const Mobile: Story = {
+  parameters: { viewport: { defaultViewport: 'mobile' } },
 };

@@ -1,25 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Footer from '@/components/landing/Footer';
+import { Footer } from '@/components/landing/components/Footer';
 
-const meta = {
+const meta: Meta<typeof Footer> = {
   title: 'Landing/Footer',
   component: Footer,
-  tags: ['autodocs'],
-  parameters: {
-    layout: 'fullscreen',
-    backgrounds: { default: 'dark' },
-  },
-} satisfies Meta<typeof Footer>;
+  parameters: { layout: 'fullscreen' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Footer>;
 
-export const Default: Story = {};
-
+export const Desktop: Story = {
+  parameters: { viewport: { defaultViewport: 'desktop' } },
+};
+export const Tablet: Story = {
+  parameters: { viewport: { defaultViewport: 'tablet' } },
+};
 export const Mobile: Story = {
-  parameters: {
-    viewport: {
-      defaultViewport: 'mobile',
-    },
-  },
+  parameters: { viewport: { defaultViewport: 'mobile' } },
 };

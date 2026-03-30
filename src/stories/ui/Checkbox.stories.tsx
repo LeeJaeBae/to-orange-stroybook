@@ -2,44 +2,24 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 
-const meta = {
+const meta: Meta<typeof Checkbox> = {
   title: 'UI/Checkbox',
   component: Checkbox,
   tags: ['autodocs'],
-  argTypes: {
-    checked: {
-      control: 'boolean',
-      description: '체크 상태',
-    },
-    disabled: {
-      control: 'boolean',
-      description: '비활성화 상태',
-    },
-  },
-} satisfies Meta<typeof Checkbox>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {};
 
 export const Checked: Story = {
-  args: {
-    defaultChecked: true,
-  },
+  args: { defaultChecked: true },
 };
 
 export const Disabled: Story = {
-  args: {
-    disabled: true,
-  },
-};
-
-export const DisabledChecked: Story = {
-  args: {
-    disabled: true,
-    defaultChecked: true,
-  },
+  args: { disabled: true },
 };
 
 export const WithLabel: Story = {
@@ -51,25 +31,33 @@ export const WithLabel: Story = {
   ),
 };
 
-export const MultipleOptions: Story = {
-  name: '여러 옵션',
+export const CheckedWithLabel: Story = {
   render: () => (
-    <div className="space-y-3">
+    <div className="flex items-center space-x-2">
+      <Checkbox id="newsletter" defaultChecked />
+      <Label htmlFor="newsletter">뉴스레터 구독</Label>
+    </div>
+  ),
+};
+
+export const AllStates: Story = {
+  render: () => (
+    <div className="flex flex-col gap-3">
       <div className="flex items-center space-x-2">
-        <Checkbox id="option1" defaultChecked />
-        <Label htmlFor="option1">일반 편지</Label>
+        <Checkbox id="unchecked" />
+        <Label htmlFor="unchecked">미선택</Label>
       </div>
       <div className="flex items-center space-x-2">
-        <Checkbox id="option2" />
-        <Label htmlFor="option2">사진 첨부</Label>
+        <Checkbox id="checked" defaultChecked />
+        <Label htmlFor="checked">선택됨</Label>
       </div>
       <div className="flex items-center space-x-2">
-        <Checkbox id="option3" />
-        <Label htmlFor="option3">빠른 배송</Label>
+        <Checkbox id="disabled" disabled />
+        <Label htmlFor="disabled">비활성</Label>
       </div>
       <div className="flex items-center space-x-2">
-        <Checkbox id="option4" disabled />
-        <Label htmlFor="option4" className="text-muted-foreground">프리미엄 편지지 (준비중)</Label>
+        <Checkbox id="disabled-checked" disabled defaultChecked />
+        <Label htmlFor="disabled-checked">비활성 선택됨</Label>
       </div>
     </div>
   ),

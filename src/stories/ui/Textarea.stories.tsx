@@ -1,85 +1,59 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
 
-const meta = {
+const meta: Meta<typeof Textarea> = {
   title: 'UI/Textarea',
   component: Textarea,
   tags: ['autodocs'],
-  argTypes: {
-    placeholder: {
-      control: 'text',
-      description: '플레이스홀더 텍스트',
-    },
-    disabled: {
-      control: 'boolean',
-      description: '비활성화 상태',
-    },
-    rows: {
-      control: 'number',
-      description: '행 수',
-    },
-  },
-  args: {
-    placeholder: '내용을 입력하세요...',
-  },
-} satisfies Meta<typeof Textarea>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Textarea>;
 
 export const Default: Story = {
   args: {
-    placeholder: '편지 내용을 입력하세요...',
-  },
-};
-
-export const WithValue: Story = {
-  args: {
-    defaultValue: '안녕하세요. 잘 지내고 계신지요.\n\n요즘 날씨가 많이 추워졌습니다.\n건강 잘 챙기세요.',
-  },
-};
-
-export const Disabled: Story = {
-  args: {
-    disabled: true,
-    defaultValue: '수정할 수 없는 내용입니다.',
+    placeholder: '내용을 입력하세요',
   },
 };
 
 export const WithLabel: Story = {
   render: () => (
-    <div className="grid w-full gap-1.5">
-      <Label htmlFor="message">편지 내용</Label>
-      <Textarea id="message" placeholder="편지 내용을 작성해주세요..." />
-      <p className="text-sm text-muted-foreground">최대 2,000자까지 입력 가능합니다.</p>
+    <div className="grid w-full max-w-sm gap-1.5">
+      <Label htmlFor="letter">편지 내용</Label>
+      <Textarea
+        placeholder="편지 내용을 입력해 주세요."
+        id="letter"
+      />
     </div>
   ),
 };
 
-export const CustomRows: Story = {
-  name: '높이 조절',
-  render: () => (
-    <div className="space-y-4">
-      <div>
-        <Label>3줄</Label>
-        <Textarea rows={3} placeholder="짧은 메모..." />
-      </div>
-      <div>
-        <Label>10줄</Label>
-        <Textarea rows={10} placeholder="긴 편지 내용..." />
-      </div>
-    </div>
-  ),
+export const Disabled: Story = {
+  args: {
+    placeholder: '비활성 텍스트 영역',
+    disabled: true,
+  },
 };
 
-export const WithButton: Story = {
-  name: '전송 버튼과 함께',
+export const WithContent: Story = {
+  args: {
+    defaultValue: '사랑하는 아버지께,\n\n건강하게 잘 지내고 계신지요?\n저희 가족 모두 잘 있습니다.',
+    rows: 6,
+  },
+};
+
+export const AllVariants: Story = {
   render: () => (
-    <div className="grid w-full gap-2">
-      <Textarea placeholder="편지 내용을 입력하세요..." />
-      <Button className="ml-auto">편지 보내기</Button>
+    <div className="flex flex-col gap-4 w-full max-w-sm">
+      <Textarea placeholder="기본 텍스트 영역" />
+      <Textarea placeholder="비활성" disabled />
+      <Textarea
+        placeholder="읽기 전용"
+        readOnly
+        defaultValue="읽기 전용 내용입니다."
+      />
     </div>
   ),
 };

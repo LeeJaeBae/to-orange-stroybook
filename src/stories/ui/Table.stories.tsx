@@ -9,43 +9,56 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
 
-const meta = {
+const meta: Meta<typeof Table> = {
   title: 'UI/Table',
   component: Table,
   tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component: '데이터를 행과 열로 표시하는 테이블 컴포넌트입니다.',
-      },
-    },
-  },
-} satisfies Meta<typeof Table>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Table>;
 
 const letters = [
-  { id: 'LTR001', recipient: '홍길동', facility: '서울구치소', status: '발송 완료', date: '2026-03-15', price: '3,500원' },
-  { id: 'LTR002', recipient: '김철수', facility: '인천구치소', status: '인쇄 중', date: '2026-03-16', price: '4,200원' },
-  { id: 'LTR003', recipient: '이영희', facility: '수원구치소', status: '결제 완료', date: '2026-03-17', price: '3,500원' },
-  { id: 'LTR004', recipient: '박민수', facility: '대전교도소', status: '작성 중', date: '2026-03-18', price: '5,000원' },
-  { id: 'LTR005', recipient: '최지은', facility: '광주교도소', status: '발송 완료', date: '2026-03-19', price: '3,500원' },
+  {
+    id: 'L001',
+    recipient: '홍길동',
+    facility: '서울구치소',
+    date: '2024-03-15',
+    status: '발송 완료',
+    variant: 'default' as const,
+  },
+  {
+    id: 'L002',
+    recipient: '김철수',
+    facility: '수원교도소',
+    date: '2024-03-14',
+    status: '처리 중',
+    variant: 'secondary' as const,
+  },
+  {
+    id: 'L003',
+    recipient: '이영희',
+    facility: '부산구치소',
+    date: '2024-03-13',
+    status: '초안',
+    variant: 'outline' as const,
+  },
 ];
 
 export const Default: Story = {
   render: () => (
     <Table>
-      <TableCaption>최근 편지 발송 내역</TableCaption>
+      <TableCaption>편지 발송 내역</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead className="w-[100px]">편지번호</TableHead>
-          <TableHead>수신자</TableHead>
-          <TableHead>수용시설</TableHead>
-          <TableHead>상태</TableHead>
-          <TableHead>날짜</TableHead>
-          <TableHead className="text-right">금액</TableHead>
+          <TableHead className="w-[100px]">편지 ID</TableHead>
+          <TableHead>수신인</TableHead>
+          <TableHead>시설</TableHead>
+          <TableHead>작성일</TableHead>
+          <TableHead className="text-right">상태</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -54,16 +67,17 @@ export const Default: Story = {
             <TableCell className="font-medium">{letter.id}</TableCell>
             <TableCell>{letter.recipient}</TableCell>
             <TableCell>{letter.facility}</TableCell>
-            <TableCell>{letter.status}</TableCell>
             <TableCell>{letter.date}</TableCell>
-            <TableCell className="text-right">{letter.price}</TableCell>
+            <TableCell className="text-right">
+              <Badge variant={letter.variant}>{letter.status}</Badge>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell colSpan={5}>합계</TableCell>
-          <TableCell className="text-right">19,700원</TableCell>
+          <TableCell colSpan={4}>총 편지 수</TableCell>
+          <TableCell className="text-right">{letters.length}건</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
@@ -71,78 +85,26 @@ export const Default: Story = {
 };
 
 export const Simple: Story = {
-  name: '심플 테이블',
   render: () => (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>이름</TableHead>
-          <TableHead>관계</TableHead>
-          <TableHead>시설</TableHead>
+          <TableHead>항목</TableHead>
+          <TableHead>수량</TableHead>
+          <TableHead className="text-right">금액</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow>
-          <TableCell>홍길동</TableCell>
-          <TableCell>친구</TableCell>
-          <TableCell>서울구치소</TableCell>
+          <TableCell>편지 발송 (일반)</TableCell>
+          <TableCell>2</TableCell>
+          <TableCell className="text-right">5,000원</TableCell>
         </TableRow>
         <TableRow>
-          <TableCell>김철수</TableCell>
-          <TableCell>가족</TableCell>
-          <TableCell>인천구치소</TableCell>
+          <TableCell>사진 첨부</TableCell>
+          <TableCell>1</TableCell>
+          <TableCell className="text-right">1,000원</TableCell>
         </TableRow>
-      </TableBody>
-    </Table>
-  ),
-};
-
-export const Empty: Story = {
-  name: '빈 테이블',
-  render: () => (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>편지번호</TableHead>
-          <TableHead>수신자</TableHead>
-          <TableHead>상태</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <TableRow>
-          <TableCell colSpan={3} className="h-24 text-center text-muted-foreground">
-            발송 내역이 없습니다.
-          </TableCell>
-        </TableRow>
-      </TableBody>
-    </Table>
-  ),
-};
-
-export const Striped: Story = {
-  name: '줄무늬 테이블',
-  render: () => (
-    <Table>
-      <TableHeader>
-        <TableRow>
-          <TableHead>시설명</TableHead>
-          <TableHead>주소</TableHead>
-          <TableHead>유형</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {[
-          { name: '서울구치소', addr: '경기도 의왕시', type: '구치소' },
-          { name: '인천구치소', addr: '인천광역시 미추홀구', type: '구치소' },
-          { name: '수원구치소', addr: '경기도 수원시', type: '구치소' },
-          { name: '대전교도소', addr: '대전광역시 유성구', type: '교도소' },
-        ].map((f, i) => (
-          <TableRow key={f.name} className={i % 2 === 0 ? 'bg-muted/50' : ''}>
-            <TableCell className="font-medium">{f.name}</TableCell>
-            <TableCell>{f.addr}</TableCell>
-            <TableCell>{f.type}</TableCell>
-          </TableRow>
-        ))}
       </TableBody>
     </Table>
   ),

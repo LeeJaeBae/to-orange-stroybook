@@ -3,31 +3,25 @@ import {
   Sheet,
   SheetContent,
   SheetDescription,
-  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
+  SheetFooter,
   SheetClose,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-const meta = {
+const meta: Meta<typeof Sheet> = {
   title: 'UI/Sheet',
   component: Sheet,
   tags: ['autodocs'],
-  parameters: {
-    docs: {
-      description: {
-        component: '화면 가장자리에서 슬라이드되어 나오는 패널 컴포넌트입니다.',
-      },
-    },
-  },
-} satisfies Meta<typeof Sheet>;
+  parameters: { layout: 'padded' },
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Sheet>;
 
 export const Default: Story = {
   render: () => (
@@ -37,17 +31,23 @@ export const Default: Story = {
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>프로필 수정</SheetTitle>
-          <SheetDescription>프로필 정보를 변경할 수 있습니다.</SheetDescription>
+          <SheetTitle>수신인 정보 편집</SheetTitle>
+          <SheetDescription>
+            수신인 정보를 수정하세요. 완료 후 저장 버튼을 클릭하세요.
+          </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">이름</Label>
-            <Input id="name" defaultValue="홍길동" className="col-span-3" />
+            <Label htmlFor="sheet-name" className="text-right">
+              이름
+            </Label>
+            <Input id="sheet-name" defaultValue="홍길동" className="col-span-3" />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="email" className="text-right">이메일</Label>
-            <Input id="email" defaultValue="hong@example.com" className="col-span-3" />
+            <Label htmlFor="sheet-facility" className="text-right">
+              시설
+            </Label>
+            <Input id="sheet-facility" defaultValue="서울구치소" className="col-span-3" />
           </div>
         </div>
         <SheetFooter>
@@ -60,91 +60,42 @@ export const Default: Story = {
   ),
 };
 
-export const SideRight: Story = {
-  name: '오른쪽 (기본)',
+export const LeftSide: Story = {
   render: () => (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">오른쪽 시트</Button>
-      </SheetTrigger>
-      <SheetContent side="right">
-        <SheetHeader>
-          <SheetTitle>오른쪽 시트</SheetTitle>
-          <SheetDescription>기본 방향입니다.</SheetDescription>
-        </SheetHeader>
-      </SheetContent>
-    </Sheet>
-  ),
-};
-
-export const SideLeft: Story = {
-  name: '왼쪽',
-  render: () => (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline">왼쪽 시트</Button>
+        <Button variant="outline">왼쪽에서 열기</Button>
       </SheetTrigger>
       <SheetContent side="left">
         <SheetHeader>
-          <SheetTitle>왼쪽 시트</SheetTitle>
-          <SheetDescription>왼쪽에서 슬라이드됩니다.</SheetDescription>
+          <SheetTitle>탐색 메뉴</SheetTitle>
         </SheetHeader>
+        <div className="py-4 space-y-2">
+          <div className="text-sm font-medium hover:text-primary cursor-pointer">홈</div>
+          <div className="text-sm font-medium hover:text-primary cursor-pointer">편지 작성</div>
+          <div className="text-sm font-medium hover:text-primary cursor-pointer">발송 내역</div>
+          <div className="text-sm font-medium hover:text-primary cursor-pointer">설정</div>
+        </div>
       </SheetContent>
     </Sheet>
   ),
 };
 
-export const SideTop: Story = {
-  name: '위쪽',
+export const BottomSheet: Story = {
   render: () => (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">위쪽 시트</Button>
-      </SheetTrigger>
-      <SheetContent side="top">
-        <SheetHeader>
-          <SheetTitle>위쪽 시트</SheetTitle>
-          <SheetDescription>위에서 슬라이드됩니다.</SheetDescription>
-        </SheetHeader>
-      </SheetContent>
-    </Sheet>
-  ),
-};
-
-export const SideBottom: Story = {
-  name: '아래쪽',
-  render: () => (
-    <Sheet>
-      <SheetTrigger asChild>
-        <Button variant="outline">아래쪽 시트</Button>
+        <Button variant="outline">하단에서 열기</Button>
       </SheetTrigger>
       <SheetContent side="bottom">
         <SheetHeader>
-          <SheetTitle>아래쪽 시트</SheetTitle>
-          <SheetDescription>아래에서 슬라이드됩니다.</SheetDescription>
+          <SheetTitle>편지 옵션</SheetTitle>
+          <SheetDescription>발송할 편지의 옵션을 선택해 주세요.</SheetDescription>
         </SheetHeader>
+        <div className="py-4">
+          <p className="text-sm text-muted-foreground">옵션 목록이 여기에 표시됩니다.</p>
+        </div>
       </SheetContent>
     </Sheet>
-  ),
-};
-
-export const AllSides: Story = {
-  name: '모든 방향',
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
-        <Sheet key={side}>
-          <SheetTrigger asChild>
-            <Button variant="outline">{side}</Button>
-          </SheetTrigger>
-          <SheetContent side={side}>
-            <SheetHeader>
-              <SheetTitle>{side} 시트</SheetTitle>
-              <SheetDescription>{side} 방향에서 열립니다.</SheetDescription>
-            </SheetHeader>
-          </SheetContent>
-        </Sheet>
-      ))}
-    </div>
   ),
 };

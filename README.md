@@ -1,6 +1,6 @@
 # To Orange Design Share
 
-디자이너 공유용 Storybook 프로젝트입니다. `apps/web`의 전체 디자인 소스를 독립적으로 확인하고 수정할 수 있습니다.
+디자이너 공유용 Storybook 프로젝트입니다. `apps/to-orange`의 디자인 소스를 독립적으로 확인할 수 있습니다.
 
 ## 시작하기
 
@@ -9,11 +9,6 @@
 ```bash
 pnpm install
 ```
-
-> 모노레포(`to-orange`) 루트에서 실행해도 됩니다:
-> ```bash
-> pnpm install --filter @to-orange/design-share
-> ```
 
 ### 2. Storybook 실행
 
@@ -29,40 +24,40 @@ pnpm storybook
 pnpm build-storybook
 ```
 
-`storybook-static/` 폴더가 생성됩니다. 이 폴더를 zip으로 압축하거나 Vercel/Netlify에 배포하면 됩니다.
+`storybook-static/` 폴더가 생성됩니다. zip으로 압축하거나 Vercel/Netlify에 배포하면 됩니다.
 
 ## 스토리 구조
 
 ```
 src/stories/
 ├── foundations/          # 디자인 토큰
-│   ├── Colors            # 색상 팔레트 (시맨틱, 오렌지, 사이드바)
+│   ├── Colors            # 색상 팔레트 (오렌지 브랜드, 시맨틱, 사이드바)
 │   ├── Typography        # 폰트 패밀리, 사이즈 스케일
 │   ├── Spacing           # 간격, 브레이크포인트, 반경
-│   └── Animations        # 커스텀 애니메이션 목록
-├── ui/                   # shadcn/ui 컴포넌트 (49개)
+│   └── Animations        # CSS 애니메이션, 스크롤 리빌, 페이드업
+├── ui/                   # shadcn/ui 컴포넌트 (48개)
 │   ├── Button, Input, Card, Badge ...
 │   └── 각 컴포넌트별 variants, states, controls
 ├── landing/              # 랜딩 페이지 섹션 (13개)
 │   ├── Navbar, HeroSection, FAQ ...
-│   └── 반응형 뷰포트 프리셋 포함
-└── pages/                # 풀페이지 조합
-    └── LandingPage       # 랜딩 전체 조합
+│   └── Desktop / Tablet / Mobile 뷰포트 프리셋
+├── pages/                # 풀페이지 조합
+│   └── LandingPage       # Navbar + 전체 섹션 + Footer
+└── about/                # 소개 페이지
+    ├── AboutPage          # 투오렌지 소개
+    └── BrandPhilosophyPage # 브랜드 철학
 ```
 
-## 컴포넌트 수정하기
-
-컴포넌트 소스는 `src/components/`에 있습니다. 자유롭게 수정 가능합니다.
+## 컴포넌트 구조
 
 ```
 src/components/
-├── ui/                   # shadcn/ui 기본 컴포넌트
+├── ui/                   # shadcn/ui 기본 컴포넌트 (radix-ui 기반)
 ├── landing/              # 랜딩 페이지
-├── mail/                 # 편지 관련 (에디터, 모달 등)
-├── payment/              # 결제
-├── time-capsule-chat/    # 타임캡슐
-├── common/               # 공통
-└── layout/               # 레이아웃
+│   ├── components/       # Navbar, Footer, FloatingBottomBar 등
+│   ├── sections/client/  # HeroSection, FAQ, CTASection 등
+│   └── lib/              # 애니메이션, 데이터, 스크롤 훅
+└── about/                # AboutPage, BrandPhilosophyPage
 ```
 
 ## 새 스토리 추가하기
@@ -73,20 +68,17 @@ src/components/
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from '@/components/ui/button';
 
-const meta = {
-  title: 'UI/Button',       // Storybook 사이드바 경로
+const meta: Meta<typeof Button> = {
+  title: 'UI/Button',
   component: Button,
-  tags: ['autodocs'],        // Props 문서 자동 생성
-} satisfies Meta<typeof Button>;
+  tags: ['autodocs'],
+};
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof Button>;
 
 export const Default: Story = {
-  args: {
-    children: '버튼',
-    variant: 'default',
-  },
+  args: { children: '버튼' },
 };
 ```
 
@@ -97,11 +89,13 @@ export const Default: Story = {
 | Storybook | 8.6 |
 | React | 19 |
 | TypeScript | 5.7 |
-| Tailwind CSS | 3.4 |
+| Tailwind CSS | 4 |
+| Radix UI | 1.4 (통합 패키지) |
+| Framer Motion | 12 |
 | Vite | (Storybook 내장) |
 
 ## 참고
 
-- Next.js, Supabase, TanStack Query 등 서버 의존성은 mock 처리되어 있습니다 (`src/mocks/`)
-- 스타일은 `src/styles/globals.css`와 `tailwind.config.js`에서 관리합니다
+- Next.js, Supabase, Auth, Analytics 등 서버 의존성은 mock 처리되어 있습니다 (`src/mocks/`)
+- 스타일은 `src/styles/globals.css`에서 관리합니다 (Tailwind v4 `@theme inline` 방식)
 - 폰트: Pretendard (산세리프), Nanum Myeongjo (명조), Nanum Pen Script (손글씨)
